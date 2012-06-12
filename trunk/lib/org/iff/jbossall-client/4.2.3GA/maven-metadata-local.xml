@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+	<groupId>org.csair.gme</groupId>
+	<artifactId>jbossall-client</artifactId>
+	<version>4.2.3GA</version>
+	<versioning>
+		<versions>
+			<version>2.0</version>
+		</versions>
+		<lastUpdated>20110330174604</lastUpdated>
+	</versioning>
+</metadata>
