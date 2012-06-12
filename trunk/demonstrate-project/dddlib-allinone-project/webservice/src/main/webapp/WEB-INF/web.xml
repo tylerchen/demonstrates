@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	id="WebApp_ID" version="2.5">
+	<display-name>ws-web</display-name>
+
+	<!-- Spring Listener -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:spring/dddlib-allinone-ws/dddlib-allinone-webservice-spring.xml</param-value>
+	</context-param>
+	<listener>
+		<listener-class>com.dayatang.spring.webapp.DayatangContextLoaderListener</listener-class>
+	</listener>
+
+	<!--
+		<servlet> <servlet-name>CXFServlet</servlet-name>
+		<servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
+		</servlet> <servlet-mapping> <servlet-name>CXFServlet</servlet-name>
+		<url-pattern>/services/*</url-pattern> </servlet-mapping>
+	-->
+
+	<servlet>
+		<servlet-name>AxisServlet</servlet-name>
+		<servlet-class>org.apache.axis2.transport.http.AxisServlet</servlet-class>
+		<!--<init-param>-->
+		<!--<param-name>axis2.xml.path</param-name>-->
+		<!--<param-value>/WEB-INF/conf/axis2.xml</param-value>-->
+		<!--<param-name>axis2.xml.url</param-name>-->
+		<!--<param-value>http://localhost/myrepo/axis2.xml</param-value>-->
+		<!--<param-name>axis2.repository.path</param-name>-->
+		<!--<param-value>/WEB-INF</param-value>-->
+		<!--<param-name>axis2.repository.url</param-name>-->
+		<!--<param-value>http://localhost/myrepo</param-value>-->
+		<!--</init-param>-->
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>AxisServlet</servlet-name>
+		<url-pattern>/services/*</url-pattern>
+	</servlet-mapping>
+
+	<!-- error configure -->
+	<error-page>
+		<error-code>404</error-code>
+		<location>/error/404.html</location>
+	</error-page>
+	<error-page>
+		<error-code>500</error-code>
+		<location>/error/500.html</location>
+	</error-page>
+
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+
+	<distributable />
+</web-app>

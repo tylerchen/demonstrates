@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+            http://www.springframework.org/schema/aop
+			http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+            http://www.springframework.org/schema/tx
+			http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+			http://www.springframework.org/schema/context
+			http://www.springframework.org/schema/context/spring-context-2.5.xsd"
+	default-autowire="byName">
+	
+	<!-- all application configure should configure in this file -->
+	
+	<context:annotation-config />
+	<context:component-scan base-package="org.iff.demo.dddallinone" />
+
+	<bean id="dddlibAllinoneAppPropertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="localOverride" value="true" />
+		<property name="placeholderPrefix" value="$A{" />
+		<property name="placeholderSuffix" value="}" />
+		<property name="locations">
+			<list>
+				<value>classpath*:META-INF/spring/dddlib-allinone-app/*.properties</value>
+			</list>
+		</property>
+		<property name="properties">
+			<props>
+				<prop key="hibernateFile">classpath:META-INF/spring/dddlib-allinone-app/hibernate.cfg.xml</prop>
+			</props>
+		</property>
+	</bean>
+</beans>

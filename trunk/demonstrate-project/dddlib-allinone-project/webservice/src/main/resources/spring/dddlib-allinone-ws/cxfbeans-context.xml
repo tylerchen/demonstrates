@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jaxrs="http://cxf.apache.org/jaxrs"
+	xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
+
+	<!--
+		do not use import statements if CXFServlet init parameters link to
+		this beans.xml
+	-->
+
+	<!--
+		<import resource="classpath:META-INF/cxf/cxf.xml" /> <import
+		resource="classpath:META-INF/cxf/cxf-extension-jaxws.xml" /> <import
+		resource="classpath:META-INF/cxf/cxf-extension-soap.xml" /> <import
+		resource="classpath:META-INF/cxf/cxf-extension-jaxrs-binding.xml" />
+		<import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
+
+		<jaxws:endpoint id="webServiceSample" address="/webServiceFacadeWS"
+		implementor="org.iff.demo.dddallinone.application.impl.EJBFacadeImpl"
+		/>
+	-->
+
+
+	<bean id="identityValidateServiceClient" class="org.iff.demo.dddallinone.application.WebServiceFacade"
+		factory-bean="identityValidateServiceClientFactory" factory-method="create" />
+
+	<bean id="identityValidateServiceClientFactory" class="org.apache.cxf.jaxws.JaxWsProxyFactoryBean">
+		<property name="serviceClass"
+			value="org.iff.demo.dddallinone.application.WebServiceFacade" />
+		<property name="address"
+			value="http://localhost:8080/services/webServiceFacadeWS" />
+	</bean>
+	<!--
+		<bean id="jsonProvider"
+		class="org.codehaus.jackson.jaxrs.JacksonJaxbJsonProvider" />
+
+		<jaxrs:server id="saleRestService" address="/v1"> <jaxrs:serviceBeans>
+		<ref bean="saleService" /> </jaxrs:serviceBeans> <jaxrs:providers>
+		<ref bean="jsonProvider" /> </jaxrs:providers> </jaxrs:server>
+	-->
+</beans>

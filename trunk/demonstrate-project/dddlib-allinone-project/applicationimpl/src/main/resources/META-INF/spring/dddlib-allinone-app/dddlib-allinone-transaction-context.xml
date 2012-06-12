@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+            http://www.springframework.org/schema/aop
+			http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+            http://www.springframework.org/schema/tx
+			http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+			http://www.springframework.org/schema/context
+			http://www.springframework.org/schema/context/spring-context-2.5.xsd"
+	default-autowire="byName">
+	
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="*_requiredNew" propagation="REQUIRES_NEW"/><!-- new a separated transaction -->
+			<tx:method name="*_notSupported" propagation="NOT_SUPPORTED"/><!-- execute method without transaction -->
+			<tx:method name="*_required" propagation="REQUIRED"/><!-- new or join the transaction -->
+			<tx:method name="*_supports" propagation="SUPPORTS"/><!-- support transaction and no transaction -->
+			<tx:method name="*_mandatory" propagation="MANDATORY"/><!-- throw exception without transaction -->
+			<tx:method name="*_never" propagation="NEVER"/><!-- throw exception with transaction -->
+			<tx:method name="*_nested" propagation="NESTED"/><!-- new a transaction and nest in the parent transaction -->
+			<tx:method name="*" propagation="REQUIRED" />
+		</tx:attributes>
+	</tx:advice>
+
+	<aop:config>
+		<aop:pointcut id="tutorial-application"
+			expression="execution(* org.iff.demo.dddallinone.application..*.*ApplicationImpl.*(..))" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="tutorial-application" />
+	</aop:config>
+</beans>

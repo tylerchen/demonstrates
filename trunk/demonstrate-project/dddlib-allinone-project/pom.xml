@@ -1,0 +1,37 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>demonstrate-project</artifactId>
+		<groupId>org.iff.demo</groupId>
+		<version>1.0.0</version>
+	</parent>
+	<groupId>org.iff.demo</groupId>
+	<artifactId>dddlib-allinone-project</artifactId>
+	<version>1.0.0</version>
+	<packaging>pom</packaging>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<local.repository.path>file://${project.basedir}/../../lib/</local.repository.path>
+	</properties>
+	<modules>
+		<module>infrastructure</module>
+		<module>bizmodel</module>
+		<module>application</module>
+		<module>applicationimpl</module>
+		<module>web</module>
+		<module>ear</module>
+		<module>webservice</module>
+	</modules>
+	<profiles>
+		<profile>
+			<id>prod</id>
+		</profile>
+		<profile>
+			<id>dev</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+		</profile>
+	</profiles>
+</project>

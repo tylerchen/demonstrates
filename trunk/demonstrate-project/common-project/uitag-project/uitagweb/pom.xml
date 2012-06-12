@@ -1,0 +1,40 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>demo-common-uitag-project</artifactId>
+		<groupId>org.iff.demo.common</groupId>
+		<version>1.0.0</version>
+	</parent>
+	<groupId>${project.parent.groupId}</groupId>
+	<artifactId>demo-common-uitagweb</artifactId>
+	<version>${project.parent.version}</version>
+	<packaging>war</packaging>
+	<name>${project.artifactId}-${project.version}</name>
+	<dependencies>
+		<dependency>
+			<groupId>${project.parent.groupId}</groupId>
+			<artifactId>demo-common-uitag</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
+	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.mortbay.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<version>7.0.1.v20091125</version>
+				<configuration>
+					<webAppConfig>
+						<defaultsDescriptor>src/test/resources/webdefault.xml</defaultsDescriptor>
+						<contextPath>/</contextPath>
+					</webAppConfig>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+</project>

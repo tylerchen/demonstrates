@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<taglib xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd"
+	version="2.1">
+	<description>grid tag</description>
+	<display-name>grid tag</display-name>
+	<tlib-version>1.2</tlib-version>
+	<short-name>grid</short-name>
+	<uri>http://org.iff.demo/grid</uri>
+	<tag>
+		<description>
+		<![CDATA[grid tag]]>
+		</description>
+		<name>grid</name>
+		<tag-class>org.iff.demo.common.uitag.grid.GridTag</tag-class>
+		<body-content>JSP</body-content>
+		<attribute>
+			<description><![CDATA[A data to show, the data can be a set, a list, a array]]></description>
+			<name>data</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description><![CDATA[grid id]]></description>
+			<name>id</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	<tag>
+		<description>
+		<![CDATA[form tag]]>
+		</description>
+		<name>form</name>
+		<tag-class>org.iff.demo.common.uitag.form.FormTag</tag-class>
+		<body-content>JSP</body-content>
+		<attribute>
+			<description><![CDATA[generate form class name]]></description>
+			<name>formClassName</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description><![CDATA[form url]]></description>
+			<name>url</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description><![CDATA[form id]]></description>
+			<name>id</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	<tag>
+		<description>
+		<![CDATA[Accordion tag]]>
+		</description>
+		<name>accordion</name>
+		<tag-class>org.iff.demo.common.uitag.accordion.AccordionTag</tag-class>
+		<body-content>JSP</body-content>
+		<attribute>
+			<description><![CDATA[accordion title name]]></description>
+			<name>title</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description><![CDATA[accordion value can be String,String[],Object[]]]></description>
+			<name>value</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description><![CDATA[accordion id]]></description>
+			<name>id</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+</taglib>
