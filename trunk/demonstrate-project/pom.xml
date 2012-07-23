@@ -912,5 +912,6 @@
 	<modules>
 		<module>dddlib-allinone-project</module>
 		<module>common-project</module>
+		<module>ddd-spring-jpa-webservice</module>
 	</modules>
 </project>

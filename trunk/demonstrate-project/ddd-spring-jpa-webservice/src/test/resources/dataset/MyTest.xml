@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+	<!-- file_source data -->
+	<ITRAVEL_MYTEST ID="1001" VERSION="1" NAME="test1" AGE="22" />
+	<ITRAVEL_MYTEST ID="1002" VERSION="1" NAME="test2" AGE="32" />
+	<ITRAVEL_MYTEST ID="1003" VERSION="1" NAME="test3" AGE="42" />
+	<ITRAVEL_MYTEST ID="1004" VERSION="1" NAME="test4" AGE="52" />
+	<ITRAVEL_MYTEST ID="1005" VERSION="1" NAME="test5" AGE="62" />
+</dataset>
