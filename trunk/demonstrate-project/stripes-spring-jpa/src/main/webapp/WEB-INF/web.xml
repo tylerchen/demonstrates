@@ -1,0 +1,104 @@
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee   http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+	<listener><!-- [1] -->
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	<context-param><!-- [2] -->
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath*:META-INF/spring/root.xml</param-value>
+	</context-param>
+	<context-param>
+		<param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
+		<param-value>StripesResources</param-value>
+	</context-param>
+	<filter>
+		<filter-name>StripesFilter</filter-name>
+		<filter-class>net.sourceforge.stripes.controller.StripesFilter</filter-class>
+		<init-param><!-- [3] -->
+			<param-name>ActionResolver.Packages</param-name>
+			<param-value>org.iff.sample.web.action</param-value>
+		</init-param>
+		<init-param>
+			<param-name>Extension.Packages</param-name>
+			<param-value>org.iff.sample.framework.ext,org.stripesstuff.stripersist,org.stripesstuff.plugin.security</param-value>
+		</init-param>
+		<init-param>
+			<param-name>SecurityManager.Class</param-name>
+			<param-value>org.iff.sample.framework.ext.MySecurityManager</param-value>
+		</init-param>
+		<init-param><!-- [4] -->
+			<param-name>Interceptor.Classes</param-name>
+			<param-value>net.sourceforge.stripes.integration.spring.SpringInterceptor</param-value>
+		</init-param>
+		<init-param><!-- [5] -->
+			<param-name>MultipartWrapper.Class</param-name>
+			<param-value>net.sourceforge.stripes.controller.multipart.CommonsMultipartWrapper</param-value>
+		</init-param>
+		<!-- [6] -->
+		<!--
+			<init-param> <param-name>ActionResolver.Class</param-name>
+			<param-value>org.iff.sample.ext.MyActionResolver</param-value>
+			</init-param>
+		-->
+	</filter>
+	<!--
+		<filter> <filter-name>DynamicMappingFilter</filter-name>
+		<filter-class>net.sourceforge.stripes.controller.DynamicMappingFilter</filter-class>
+		</filter>
+	-->
+	<servlet>
+		<servlet-name>DispatcherServlet</servlet-name>
+		<servlet-class>net.sourceforge.stripes.controller.DispatcherServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<filter>
+		<filter-name>ResponseOverrideFilter</filter-name>
+		<filter-class>org.displaytag.filter.ResponseOverrideFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>ResponseOverrideFilter</filter-name>
+		<url-pattern>*.action</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>StripesFilter</filter-name>
+		<servlet-name>StripesDispatcher</servlet-name>
+		<dispatcher>REQUEST</dispatcher>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>StripesFilter</filter-name>
+		<servlet-name>DispatcherServlet</servlet-name>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+	</filter-mapping>
+	<!--
+		<filter-mapping> <filter-name>DynamicMappingFilter</filter-name>
+		<url-pattern>/*</url-pattern> <dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher> <dispatcher>INCLUDE</dispatcher>
+		</filter-mapping>
+	-->
+	<servlet-mapping>
+		<servlet-name>DispatcherServlet</servlet-name>
+		<url-pattern>*.action</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>DispatcherServlet</servlet-name>
+		<url-pattern>/action/*</url-pattern>
+	</servlet-mapping>
+
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+	<error-page>
+		<error-code>404</error-code>
+		<location>/WEB-INF/jsp/exceptions/not_found.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>401</error-code>
+		<location>/WEB-INF/jsp/exceptions/unauthorized.jsp</location>
+	</error-page>
+	<session-config>
+		<session-timeout>60</session-timeout>
+	</session-config>
+</web-app>

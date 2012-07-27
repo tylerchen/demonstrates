@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+	<sample_role id="1001" name="SuperAdmin" jpaversion="1" />
+	<sample_role id="1002" name="Public" jpaversion="1" />
+</dataset>

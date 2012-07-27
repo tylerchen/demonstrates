@@ -1,0 +1,7 @@
+Hello ${username},
+
+ERROR Message:
+URL: ${url}
+message: ${message}
+
+Thank you for reading.
