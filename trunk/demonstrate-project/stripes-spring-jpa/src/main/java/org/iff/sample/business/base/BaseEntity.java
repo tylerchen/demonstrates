@@ -30,7 +30,7 @@ public class BaseEntity implements Serializable {
 	protected Long id;
 
 	@Version
-	@Column(name = "jpaversion", nullable = false, columnDefinition = "INT unsigned")
+	@Column(name = "jpaversion")
 	private Integer version;
 
 	public Long getId() {

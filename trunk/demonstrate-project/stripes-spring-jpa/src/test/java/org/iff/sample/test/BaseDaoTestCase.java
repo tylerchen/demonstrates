@@ -1,4 +1,4 @@
-package com.poinge.test;
+package org.iff.sample.test;
 
 import java.io.InputStreamReader;
 import java.util.Enumeration;

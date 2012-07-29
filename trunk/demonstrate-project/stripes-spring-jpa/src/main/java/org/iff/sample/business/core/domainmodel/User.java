@@ -81,4 +81,10 @@ public class User extends BaseEntity {
 		this.name = name;
 	}
 
+	public String toString() {
+		return "User [email=" + email + ", name=" + name + ", password="
+				+ password + ", roles=" + roles + ", userName=" + userName
+				+ "]";
+	}
+
 }

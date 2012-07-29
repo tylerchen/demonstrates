@@ -1,15 +1,15 @@
-package com.poinge.dao.hibernate;
+package org.iff.sample.dao.hibernate;
 
 import junit.framework.Assert;
 
+import org.iff.sample.test.BaseDaoTestCase;
 import org.junit.Test;
 
-import com.poinge.test.BaseDaoTestCase;
 
 public class EntityManagerTest extends BaseDaoTestCase {
 
 	public String[] getDataSetFilePaths() {
-		return new String[] { "/dataset/themes.xml" };
+		return new String[] { "/dataset/sample_role.xml" };
 	}
 
 	@Test
