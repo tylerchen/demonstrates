@@ -12,8 +12,8 @@
 		<hibernate.version>3.6.7.Final</hibernate.version>
 		<cglib-version>2.2</cglib-version>
 		<hibernate.validator.version>4.0.2.GA</hibernate.validator.version>
-		<spring.version>3.0.6.RELEASE</spring.version>
-		<spring.security.version>3.1.0.RELEASE</spring.security.version>
+		<spring.version>3.1.1.RELEASE</spring.version>
+		<spring.security.version>3.1.1.RELEASE</spring.security.version>
 		<slf4j.version>1.6.2</slf4j.version>
 		<jstl.taglibs.version>1.2</jstl.taglibs.version>
 		<httpclient.version>3.1</httpclient.version>
@@ -69,11 +69,13 @@
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
 			<version>${slf4j.version}</version>
+			<scope>${eap.dependency.scope}</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>${slf4j.version}</version>
+			<scope>${eap.dependency.scope}</scope>
 		</dependency>
 		<!-- common -->
 		<dependency>
@@ -101,6 +103,7 @@
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
 			<version>${jstl.taglibs.version}</version>
+			<scope>${eap.dependency.scope}</scope>
 		</dependency>
 
 		<!--
@@ -336,6 +339,12 @@
 			<version>${hibernate.version}</version>
 		</dependency>
 		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+			<version>1.0.0.GA</version>
+			<scope>${eap.dependency.scope}</scope>
+		</dependency>
+		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator</artifactId>
 			<version>${hibernate.validator.version}</version>
@@ -459,6 +468,7 @@
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 			<version>1.3.167</version>
+			<scope>${eap.dependency.scope}</scope>
 		</dependency>
 	</dependencies>
 
@@ -468,6 +478,16 @@
 			<resource>
 				<directory>src/main/resources</directory>
 				<filtering>true</filtering>
+				<includes>
+					<include>**/*</include>
+				</includes>
+			</resource>
+			<resource>
+				<directory>src/main/environments/${target.environment}/resources</directory>
+				<filtering>true</filtering>
+				<includes>
+					<include>**/*</include>
+				</includes>
 			</resource>
 		</resources>
 		<plugins>
@@ -514,6 +534,10 @@
 				<activeByDefault>true</activeByDefault>
 			</activation>
 			<properties>
+				<!-- dependency -->
+				<eap.dependency.scope>provided</eap.dependency.scope>
+				<hibernate.dependency.scope>compile</hibernate.dependency.scope>
+				<target.environment>eap</target.environment>
 				<!-- db config -->
 				<db.hibernate.dialect>org.hibernate.dialect.H2Dialect</db.hibernate.dialect>
 				<db.jdbcDriver>org.h2.Driver</db.jdbcDriver>
@@ -545,7 +569,19 @@
 				-->
 				<app.dev>true</app.dev>
 				<!-- development/test environment setting end. -->
+
+				<target.environment>eap</target.environment>
 			</properties>
+			<build>
+				<resources>
+					<resource>
+						<directory>src/main/environments/${target.environment}/WEB-INF</directory>
+						<includes>
+							<include>**/*</include>
+						</includes>
+					</resource>
+				</resources>
+			</build>
 		</profile>
 	</profiles>
 </project>
