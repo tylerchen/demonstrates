@@ -914,5 +914,7 @@
 		<module>common-project</module>
 		<module>ddd-spring-jpa-webservice</module>
 		<module>stripes-spring-jpa</module>
+		<module>bootsrap-sample</module>
+		<module>dddlib3</module>
 	</modules>
 </project>
