@@ -1,0 +1,20 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.iff.demo</groupId>
+	<artifactId>dddlib3-JSH</artifactId>
+	<version>1.0.0</version>
+	<packaging>pom</packaging>
+	<name>${project.artifactId}-${project.version}</name>
+	<modules>
+		<module>parent</module>
+		<module>infra</module>
+		<module>jpa-persistent</module>
+		<module>bizmodel</module>
+		<module>biz2model</module>
+		<module>application</module>
+		<module>applicationimpl</module>
+		<module>web</module>
+		<module>ear</module>
+	</modules>
+</project>

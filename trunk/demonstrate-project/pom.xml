@@ -916,5 +916,7 @@
 		<module>stripes-spring-jpa</module>
 		<module>bootsrap-sample</module>
 		<module>dddlib3</module>
+		<!--<module>ddd-auth-project</module>-->
+		<module>dddlib3-JSH</module>
 	</modules>
 </project>
