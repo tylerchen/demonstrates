@@ -111,6 +111,11 @@
 			<artifactId>primefaces-mobile</artifactId>
 			<version>0.9.3</version>
 		</dependency>
+		<dependency>
+			<groupId>org.primefaces.themes</groupId>
+			<artifactId>bootstrap</artifactId>
+			<version>1.0.8</version>
+		</dependency>
 	</dependencies>
 
 	<build>

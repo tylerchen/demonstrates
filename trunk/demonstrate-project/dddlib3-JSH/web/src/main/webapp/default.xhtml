@@ -4,6 +4,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<link href="themes/bluesky/skin.css" rel="stylesheet" type="text/css"></link>
+</h:head>
 
 <h:body>
 
@@ -11,14 +14,15 @@
  
  	#{demoActionBean.hello()}
  	
- 	<p:accordionPanel>
+ 	<div style="width:50%"><p:accordionPanel>
 		<p:tab title="First Tab Title">
 			<h:outputText value="Lorem" />
 		</p:tab>
 		<p:tab title="Second Tab Title">
 			<h:outputText value="Ipsum" />
 		</p:tab>
-	</p:accordionPanel>
+	</p:accordionPanel></div>
+
 </h:body>
 
 </html>

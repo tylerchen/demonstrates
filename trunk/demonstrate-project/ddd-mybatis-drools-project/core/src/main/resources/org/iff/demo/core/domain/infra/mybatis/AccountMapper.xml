@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.iff.demo.core.domain.infra.mybatis.AccountRepository">
+
+	<!-- Account getAccount(Long accountId);
+	Account getAccountByUsernameAndPassword(Account account);
+	void insertAccount(Account account);
+	void updateAccount(Account account);
+	void deleteAccount(Long id);
+	private Long accountId;
+	private String username;
+	private String password;
+	 -->
+	 
+	<resultMap id="AccountMap" type="org.iff.demo.core.domain.Account">
+		<id property="accountId" column="ACCOUNTID" jdbcType="INTEGER"/>
+		<result property="username" column="USERNAME" jdbcType="VARCHAR"/>
+		<result property="password" column="PASSWORD" jdbcType="VARCHAR"/>
+	</resultMap>
+	 
+	<select id="getAccount" parameterType="string" resultType="org.iff.demo.core.domain.Account">
+		SELECT
+			ACCOUNT.A_ID AS ACCOUNTID,
+			ACCOUNT.USERNAME,
+			ACCOUNT.PASSWORD
+		FROM ACCOUNT
+		WHERE
+			ACCOUNT.A_ID = #{accountId}
+	</select>
+	
+	<select id="getAccountByUsernameAndPassword" parameterType="org.iff.demo.core.domain.Account" resultMap="AccountMap">
+		SELECT
+			ACCOUNT.A_ID AS ACCOUNTID,
+			ACCOUNT.USERNAME,
+			ACCOUNT.PASSWORD
+		FROM ACCOUNT
+		WHERE
+			ACCOUNT.USERNAME = #{username}
+			AND ACCOUNT.PASSWORD = #{password}
+	</select>
+	
+	<select id="pageFindAccount" resultMap="AccountMap">
+		SELECT
+			ACCOUNT.A_ID AS ACCOUNTID,
+			ACCOUNT.USERNAME,
+			ACCOUNT.PASSWORD
+		FROM ACCOUNT
+		WHERE
+			ACCOUNT.USERNAME = #{username}
+	</select>
+	
+	<select id="pageFindAccount2" resultMap="AccountMap">
+		SELECT
+			ACCOUNT.A_ID AS ACCOUNTID,
+			ACCOUNT.USERNAME,
+			ACCOUNT.PASSWORD
+		FROM ACCOUNT
+		WHERE
+			ACCOUNT.USERNAME = #{username}
+	</select>
+	
+	<insert id="insertAccount" parameterType="org.iff.demo.core.domain.Account" useGeneratedKeys="true" keyProperty="accountId" >
+		INSERT INTO ACCOUNT
+			(A_ID, USERNAME, PASSWORD)
+		VALUES
+			(#{accountId}, #{username}, #{password})
+	</insert>
+	
+	<update id="updateAccount" parameterType="org.iff.demo.core.domain.Account">
+		UPDATE ACCOUNT SET
+			USERNAME = ${username},
+			PASSWORD = ${password}
+		WHERE
+			A_ID = #{accountId}
+	</update>
+	
+	<delete id="deleteAccount" parameterType="string">
+		DELETE FROM 
+			ACCOUNT
+		WHERE 
+			A_ID = #{accountId}
+	</delete>
+</mapper>
