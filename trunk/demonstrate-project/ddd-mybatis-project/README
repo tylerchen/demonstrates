@@ -1,0 +1,31 @@
+这个例子使用了，JPA，Spring-data-jpa，dddlib3等技术，并详细划分了模块，可以根据项目的情况适当合并或裁减一些模块。
+application      ：应用层接口（接口是不包含领域对象的，只以VO的方式与Web层和外界交互）
+applicationimpl：应用层实现（只能调用领域对象和领域服务）
+biz2model      ：领域层2（仓储(DAO)使用了Spring-data-jpa的实现，具体使用可以参看一下Spring-data-jpa的使用）
+bizmodel        ：领域层1（仓储(DAO)使用了Spring-data-jpa的实现，具体使用可以参看一下Spring-data-jpa的使用）
+ear                ：打包成EAR，如果没有使用EJB，那就没这个需要，可以裁减
+infra              ：基础设施层
+jpa-persistent：这个项目是包含了JPA persistent的描述，另外，修正了dddlib3的一些BUG
+lib                 ：dddlib3所有包都在这里了
+parent           ：所有子模块的依赖都在这里定义
+src                ：无
+web               ：WEB层，WEB层只能调用Application层的接口和基础设施层。
+
+如果不想太复杂，建议分层三大模块：
+1. 基础设施层infra
+2. 领域和应用层：application applicationimpl biz2model bizmodel jpa-persistent 合并起来
+3. WEB层
+包名划分，例如如下（其中com.foreveross.pe为公司名+项目名）：
+com.foreveross.pe.util                                   ：工具类包
+com.foreveross.pe.vo.biz                               ：VO包，vo包+对应的业务模块包
+com.foreveross.pe.application                         ：应用接口包
+com.foreveross.pe.application.impl                  ：应用实现包
+com.foreveross.pe.biz.core.domain                 ：领域包，领域模块+子模块+domain
+com.foreveross.pe.biz.core.domain.service      ：领域服务包，领域模块+子模块+domain.service
+com.foreveross.pe.biz.core.domain.infra.jpa    ：领域仓储/DAO包，领域模块+子模块+domain..infra.jpa
+com.foreveross.pe.web.action.base                ：WEB模块+基础包(base)
+com.foreveross.pe.web.action.core                ：WEB模块+子模块包(core)
+WEB的URL组成基本规则：
+<action name="*-*-*" class="com.foreveross.pe.web.action.{1}.{2}Action" method="{3}">
+如URL：http://localhost:8080/core-Demo-hello.action
+那对应用访问的Action和方法为：com.foreveross.pe.web.action.core.DemoAction.hello()

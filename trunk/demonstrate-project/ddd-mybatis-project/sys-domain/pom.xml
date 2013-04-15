@@ -1,0 +1,43 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.foreveross.demo</groupId>
+		<artifactId>ddd-mybatis-parent</artifactId>
+		<version>1.0.0</version>
+		<relativePath>../parent/pom.xml</relativePath>
+	</parent>
+	<groupId>com.foreveross.demo</groupId>
+	<artifactId>ddd-mybatis-sys-domain</artifactId>
+	<version>1.0.0</version>
+	<name>${project.artifactId}-${project.version}</name>
+
+	<dependencies>
+		<!-- project dependency -->
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>ddd-mybatis-infra</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<!-- project dependency end -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

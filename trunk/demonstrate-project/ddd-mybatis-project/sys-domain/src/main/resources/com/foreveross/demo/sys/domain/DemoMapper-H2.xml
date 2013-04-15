@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.foreveross.demo.sys.domain.DemoRepository">
+
+	<resultMap id="AccountMap" type="com.foreveross.demo.sys.domain.Demo">
+		<id property="accountId" column="ACCOUNTID" jdbcType="INTEGER"/>
+		<result property="username" column="USERNAME" jdbcType="VARCHAR"/>
+		<result property="password" column="PASSWORD" jdbcType="VARCHAR"/>
+	</resultMap>
+	 
+	<select id="getAccount" parameterType="string" resultType="com.foreveross.demo.sys.domain.Demo">
+		SELECT
+			DEMO.A_ID AS ACCOUNTID,
+			DEMO.USERNAME,
+			DEMO.PASSWORD
+		FROM DEMO
+		WHERE
+			DEMO.A_ID = #{accountId}
+	</select>
+	
+	<select id="getAccountByUsernameAndPassword" parameterType="com.foreveross.demo.sys.domain.Demo" resultMap="AccountMap">
+		SELECT
+			DEMO.A_ID AS ACCOUNTID,
+			DEMO.USERNAME,
+			DEMO.PASSWORD
+		FROM DEMO
+		WHERE
+			DEMO.USERNAME = #{username}
+			AND DEMO.PASSWORD = #{password}
+	</select>
+	
+	<select id="pageFindAccount" resultMap="AccountMap">
+		SELECT
+			DEMO.A_ID AS ACCOUNTID,
+			DEMO.USERNAME,
+			DEMO.PASSWORD
+		FROM DEMO
+		WHERE
+			DEMO.USERNAME = #{username}
+	</select>
+	
+	<select id="pageFindAccount2" resultMap="AccountMap">
+		SELECT
+			DEMO.A_ID AS ACCOUNTID,
+			DEMO.USERNAME,
+			DEMO.PASSWORD
+		FROM DEMO
+		WHERE
+			DEMO.USERNAME = #{username}
+	</select>
+	
+	<insert id="insertAccount" parameterType="com.foreveross.demo.sys.domain.Demo" useGeneratedKeys="true" keyProperty="accountId" >
+		INSERT INTO DEMO
+			(A_ID, USERNAME, PASSWORD)
+		VALUES
+			(#{accountId}, #{username}, #{password})
+	</insert>
+	
+	<update id="updateAccount" parameterType="com.foreveross.demo.sys.domain.Demo">
+		UPDATE DEMO SET
+			USERNAME = ${username},
+			PASSWORD = ${password}
+		WHERE
+			A_ID = #{accountId}
+	</update>
+	
+	<delete id="deleteAccount" parameterType="string">
+		DELETE FROM 
+			DEMO
+		WHERE 
+			A_ID = #{accountId}
+	</delete>
+</mapper>
