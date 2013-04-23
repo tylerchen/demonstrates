@@ -1,4 +1,131 @@
-WEB的URL组成基本规则：
-<action name="*-*-*" class="com.foreveross.pe.web.action.{1}.{2}Action" method="{3}">
-如URL：http://localhost:8080/core-Demo-hello.action
-那对应用访问的Action和方法为：com.foreveross.pe.web.action.core.DemoAction.hello()
+1. ==============For Application====
+
+	ddd-mybatis-project
+	|-conf.........................所有的配置文件，其他层可以依赖
+	|-infra........................【基础设施层】，其他层可以依赖
+	|-parent.......................所有Maven依赖声明
+	|-sys-application..............【应用层接口】，只能依赖于【基础设施层】，不要依赖【领域层】
+	|-sys-application-impl.........【应用层实现】，除【展现层】外，可依赖于其他各层
+	|-sys-domain...................【领域层】，只能依赖于【基础设施层】
+	|-web..........................【展现层】，只能依赖于【应用层】的接口
+
+2. ==============For Web============
+
+  a) URL
+     URL Pattern: <action name="*/*-*-*" class="com.foreveross.demo.web.action.{1}.{2}.{3}Action" method="{4}">
+     Sample: http://localhost:8080/core/demo-Demo-hello.action
+     Configure file: /ddd-mybatis-conf/src/main/resources/struts.xml
+  b) Run web
+     in web directory, run: mvn jetty:run
+
+3. ==============For WebService=====
+  a) 声明CXF的依赖，/ddd-mybatis-project/parent/pom.xml
+		<!-- cxf -->
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-jaxrs</artifactId>
+			<version>1.9.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-xc</artifactId>
+			<version>1.9.2</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.ws.rs</groupId>
+			<artifactId>jsr311-api</artifactId>
+			<version>${version.jsr311}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-core</artifactId>
+			<version>${version.cxf}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-frontend-jaxws</artifactId>
+			<version>${version.cxf}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-frontend-jaxrs</artifactId>
+			<version>${version.cxf}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-transports-http</artifactId>
+			<version>${version.cxf}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-transports-http-jetty</artifactId>
+			<version>${version.cxf}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.woodstox</groupId>
+			<artifactId>stax2-api</artifactId>
+			<version>3.1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>wsdl4j</groupId>
+			<artifactId>wsdl4j</artifactId>
+			<version>1.6.2</version>
+		</dependency>
+		<!-- cxf end -->
+  b) web中引入依赖
+		<!-- cxf -->
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-jaxrs</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-xc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-frontend-jaxrs</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.ws.rs</groupId>
+			<artifactId>jsr311-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-transports-http</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>wsdl4j</groupId>
+			<artifactId>wsdl4j</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.woodstox</groupId>
+			<artifactId>stax2-api</artifactId>
+		</dependency>
+		<!-- cxf end -->
+  c) 在root.xml中加入webservice的配置webservice-cxf.xml，同时也要加入要暴露出来的接口服务的配置，如/demo
+  		/ddd-mybatis-conf/src/main/resources/spring-web：
+		<import resource="classpath:spring-web/webservice-cxf.xml" />
+  d) 在web.xml中加入webservice的servlet，/ddd-mybatis-web/src/main/webapp/WEB-INF/web.xml
+		<!-- cxf webservice -->
+		<servlet>
+			<servlet-name>cxf</servlet-name>
+			<description>Apache CXF Endpoint</description>
+			<servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
+			<load-on-startup>1</load-on-startup>
+		</servlet>
+	
+		<servlet-mapping>
+			<servlet-name>cxf</servlet-name>
+			<url-pattern>/webservice/*</url-pattern>
+		</servlet-mapping>
+  e) 在【应用层接口】上添加webservice的注解，
+  		/ddd-mybatis-sys-application/src/main/java/com/foreveross/demo/sys/application/DemoApplication.java
+  f) 在VO上添加@XmlRootElement(name = "Demo")，
+		/ddd-mybatis-sys-application/src/main/java/com/foreveross/demo/sys/application/vo/DemoVO.java
+		/ddd-mybatis-infra/src/main/java/com/foreveross/util/mybatis/plugin/Page.java
+

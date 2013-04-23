@@ -52,54 +52,51 @@ public class MyTestEntity extends BaseEntity {
 	public static List<MyTestEntity> findMyTestByName(String name) {
 		return getMyTestEntityRepository().findByName(name);
 	}
-	
+
 	public static List<MyTestEntity> findMyTestAll() {
 		return getMyTestEntityRepository().findAll();
 	}
-	
+
 	//添加
 	public static MyTestEntity createMyTest(MyTestDTO wst) {
-		
+
 		//组装
 		MyTestEntity mytest = new MyTestEntity();
 		mytest.setName(wst.getName());
-		mytest.setAge(wst.getAge());		
-		
-		mytest = getMyTestEntityRepository().save(mytest);
-		
-		//有啥区别mytest.save();
+		mytest.setAge(wst.getAge());
+		mytest.save();
+
 		return mytest;
 	}
-	
+
 	//删除	
-	public static boolean deleteMytest(Long id){
+	public static boolean deleteMytest(Long id) {
 		boolean result = false;
-		
+
 		/*MyTestEntity mytest = getMyTestEntityRepository().findOne(id);
 		if(mytest!=null){
 			mytest.remove();
 			result=true;
-		}*/	
+		}*/
 		boolean isexists = getMyTestEntityRepository().exists(id);
-		if(isexists){
+		if (isexists) {
 			getMyTestEntityRepository().delete(id);
-			result=true;
+			result = true;
 		}
-		return result;		
+		return result;
 	}
-	
+
 	//更新
-	public static MyTestEntity updateMyTest(MyTestDTO wst){
-		
+	public static MyTestEntity updateMyTest(MyTestDTO wst) {
+
 		MyTestEntity mytest = getMyTestEntityRepository().findOne((long) 1);
-		if(mytest!=null){
+		if (mytest != null) {
 			mytest.setAge(wst.getAge());
-			mytest = getMyTestEntityRepository().save(mytest);		
-		}		
+			mytest = getMyTestEntityRepository().save(mytest);
+		}
 		return mytest;
 	}
 
-	
 	// getter setter
 	public String getName() {
 		return name;

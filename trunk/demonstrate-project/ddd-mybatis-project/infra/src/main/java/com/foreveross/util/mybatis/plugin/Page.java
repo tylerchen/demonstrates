@@ -4,9 +4,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 import com.foreveross.util.BeanHelper;
 
 @SuppressWarnings( { "serial", "unchecked" })
+@XmlRootElement(name = "Page")
 public class Page implements Serializable, Cloneable {
 	private static int PAGE_SIZE_DEFAULT = 10; //显示数目
 	private int pageSize = PAGE_SIZE_DEFAULT; // 当页显示数目

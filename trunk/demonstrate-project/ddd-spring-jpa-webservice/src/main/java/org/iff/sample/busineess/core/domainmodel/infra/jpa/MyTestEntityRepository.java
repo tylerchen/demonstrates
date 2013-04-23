@@ -11,6 +11,7 @@ import java.util.List;
 
 import org.iff.sample.busineess.core.domainmodel.MyTestEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 /**
  * @author <a href="mailto:iffiff1@hotmail.com">Tyler Chen</a> 
@@ -19,5 +20,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface MyTestEntityRepository extends
 		JpaRepository<MyTestEntity, Long> {
 
-	List<MyTestEntity> findByName(String name);	
+	List<MyTestEntity> findByName(String name);
+	
+	@Query("from MyTestEntity where name=?1 and age=?2")
+	List<MyTestEntity> findByNameAndAge(String name, Integer age);
 }

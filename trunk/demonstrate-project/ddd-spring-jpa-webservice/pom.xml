@@ -336,11 +336,11 @@
 				<artifactId>mysql-connector-java</artifactId>
 				<version>5.1.12</version>
 			</dependency>
-            <dependency>
-                <groupId>com.h2database</groupId>
-                <artifactId>h2</artifactId>
-                <version>1.3.167</version>
-            </dependency>
+			<dependency>
+				<groupId>com.h2database</groupId>
+				<artifactId>h2</artifactId>
+				<version>1.3.167</version>
+			</dependency>
 			<dependency>
 				<groupId>commons-dbcp</groupId>
 				<artifactId>commons-dbcp</artifactId>
@@ -1114,7 +1114,7 @@
 			<artifactId>mysql-connector-java</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.h2</groupId>
+			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 		</dependency>
 		<!-- apache commons -->

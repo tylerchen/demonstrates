@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.inject.Named;
-import javax.jws.WebService;
 
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,7 +29,6 @@ import com.foreveross.util.mybatis.plugin.Page;
  */
 @Named("demoApplication")
 @Transactional
-@WebService(endpointInterface = "com.foreveross.pe.sys.application.DemoApplication")
 public class DemoApplicationImpl implements DemoApplication {
 
 	@Override

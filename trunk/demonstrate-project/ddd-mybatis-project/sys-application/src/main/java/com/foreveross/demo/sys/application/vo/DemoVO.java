@@ -2,6 +2,9 @@ package com.foreveross.demo.sys.application.vo;
 
 import java.io.Serializable;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name = "Demo")
 @SuppressWarnings("serial")
 public class DemoVO implements Serializable {
 

@@ -39,7 +39,7 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
-	<!-- cxf webservice
+	<!-- cxf webservice -->
 	<servlet>
 		<servlet-name>cxf</servlet-name>
 		<description>Apache CXF Endpoint</description>
@@ -51,7 +51,7 @@
 		<servlet-name>cxf</servlet-name>
 		<url-pattern>/webservice/*</url-pattern>
 	</servlet-mapping>
- 	-->
+
  	
 	<!-- Spring Listener -->
 	<context-param>
