@@ -35,9 +35,10 @@
 		<jaxrs:serviceBeans>
 			<ref bean="demoApplication" />
 		</jaxrs:serviceBeans>
-		<!--
-			JSON PROVIDER <jaxrs:providers> <ref bean="jsonProvider" />
-			</jaxrs:providers>
-		-->
+		<!-- JSON PROVIDER -->
+		<jaxrs:providers>
+			<ref bean="jsonProvider" />
+		</jaxrs:providers>
+
 	</jaxrs:server>
 </beans>

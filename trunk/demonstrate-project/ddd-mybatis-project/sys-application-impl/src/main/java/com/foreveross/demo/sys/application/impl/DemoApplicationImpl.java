@@ -82,4 +82,22 @@ public class DemoApplicationImpl implements DemoApplication {
 		return pages.toPage(DemoVO.class).getRows();
 	}
 
+	@Override
+	public Page pageFindAllAccount() {
+		Page pages = new Page(10);
+		String username = "test";
+		{
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("page", pages);
+			map.put("username", username);
+			List<Demo> l = InstanceFactory.getInstance(DemoRepository.class)
+					.pageFindAccount2(map);
+			System.out.println(l);
+		}
+		List<Demo> list = InstanceFactory.getInstance(DemoRepository.class)
+				.pageFindAccount(pages, username);
+		pages.setRows(list);
+		return pages.toPage(DemoVO.class);
+	}
+
 }
