@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+	<!-- file_source data -->
+	<RULES_FIELD_MAPPER ID="1001" FIELD_NAME="航线" OBJECT_CLASS="com.foreveross.demo.application.Test1" OBJECT_FIELD="a"/>
+	<RULES_FIELD_MAPPER ID="1002" FIELD_NAME="航班" OBJECT_CLASS="com.foreveross.demo.application.Test1" OBJECT_FIELD="b"/>
+	<RULES_FIELD_MAPPER ID="1003" FIELD_NAME="航油" OBJECT_CLASS="com.foreveross.demo.application.Test1" OBJECT_FIELD="c"/>
+	<RULES_FIELD_MAPPER ID="1004" FIELD_NAME="起飞站" OBJECT_CLASS="com.foreveross.demo.application.Test2" OBJECT_FIELD="d"/>
+	<RULES_FIELD_MAPPER ID="1005" FIELD_NAME="落地站" OBJECT_CLASS="com.foreveross.demo.application.Test2" OBJECT_FIELD="e"/>
+	<RULES_FIELD_MAPPER ID="1006" FIELD_NAME="国内航线" OBJECT_CLASS="com.foreveross.demo.application.Test3" OBJECT_FIELD="f"/>
+	<RULES_FIELD_MAPPER ID="1007" FIELD_NAME="国际航线" OBJECT_CLASS="com.foreveross.demo.application.Test3" OBJECT_FIELD="g"/>
+</dataset>

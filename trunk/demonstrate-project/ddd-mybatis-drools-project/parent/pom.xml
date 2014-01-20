@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.iff.demo</groupId>
+	<groupId>com.foreveross.demo</groupId>
 	<artifactId>ddd-mybatis-drools-parent</artifactId>
 	<version>1.0.0</version>
 	<packaging>pom</packaging>
@@ -11,8 +11,9 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<local.repository.path>file://${project.basedir}/lib</local.repository.path>
 
-		<version.dayatang.commons>3.0</version.dayatang.commons>
 		<version.spring>3.1.2.RELEASE</version.spring>
+		<version.jsr311>1.0</version.jsr311>
+		<version.cxf>2.7.3</version.cxf>
 
 		<jdbc.groupId>com.h2database</jdbc.groupId>
 		<jdbc.artifactId>h2</jdbc.artifactId>
@@ -57,16 +58,6 @@
 	</profiles>
 
 	<repositories>
-		<!--
-			<repository> <id>basedir</id> <url>${local.repository.path}</url>
-			</repository> <repository> <id>basedir-parent</id>
-			<url>${local.repository.path}/../</url> </repository>
-		-->
-		<repository>
-			<id>dayatang.nexus.release</id>
-			<name>Dayatang release repository</name>
-			<url>http://www.dayatang.com/nexus/content/repositories/releases</url>
-		</repository>
 		<repository>
 			<id>JBoss Repo</id>
 			<url>https://repository.jboss.org/nexus/content/repositories/releases</url>
@@ -75,19 +66,6 @@
 			<id>spring-maven-release</id>
 			<url>http://maven.springframework.org/release</url>
 		</repository>
-		<!--
-			<repository> <id>spring-roo-repository</id>
-			<url>http://spring-roo-repository.springsource.org/release</url>
-			</repository>
-		-->
-		<!--
-			<repository> <id>spy</id> <name>Spy Repository</name>
-			<layout>default</layout>
-			<url>http://files.couchbase.com/maven2/</url> <snapshots>
-			<enabled>false</enabled> </snapshots> </repository> <repository>
-			<id>audaxis</id> <url>http://support.audaxis.com/maven2/</url>
-			</repository>
-		-->
 	</repositories>
 	<pluginRepositories>
 		<pluginRepository>
@@ -105,77 +83,18 @@
 	</pluginRepositories>
 	<dependencyManagement>
 		<dependencies>
+			<!-- javax.servlet -->
 			<dependency>
-				<groupId>com.dayatang.commons</groupId>
-				<artifactId>dayatang-commons-utils</artifactId>
-				<version>${version.dayatang.commons}</version>
+				<groupId>javax.servlet</groupId>
+				<artifactId>servlet-api</artifactId>
+				<version>2.5</version>
 			</dependency>
-			<dependency>
-				<groupId>com.dayatang.commons</groupId>
-				<artifactId>dayatang-commons-spring</artifactId>
-				<version>${version.dayatang.commons}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.dayatang.commons</groupId>
-				<artifactId>dayatang-commons-hibernate</artifactId>
-				<version>${version.dayatang.commons}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.dayatang.commons</groupId>
-				<artifactId>dayatang-commons-jpa</artifactId>
-				<version>${version.dayatang.commons}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.dayatang.commons</groupId>
-				<artifactId>dayatang-commons-domain</artifactId>
-				<version>${version.dayatang.commons}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.dayatang.commons</groupId>
-				<artifactId>dayatang-commons-querychannel</artifactId>
-				<version>${version.dayatang.commons}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.dayatang.commons</groupId>
-				<artifactId>dayatang-commons-i18n</artifactId>
-				<version>${version.dayatang.commons}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.dayatang.commons</groupId>
-				<artifactId>dayatang-commons-rule</artifactId>
-				<version>${version.dayatang.commons}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.dayatang.commons</groupId>
-				<artifactId>dayatang-commons-script</artifactId>
-				<version>${version.dayatang.commons}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.dayatang.commons</groupId>
-				<artifactId>dayatang-commons-test</artifactId>
-				<version>${version.dayatang.commons}</version>
-				<scope>test</scope>
-			</dependency>
-			<dependency>
-				<groupId>com.dayatang.commons</groupId>
-				<artifactId>dayatang-commons-db</artifactId>
-				<version>${version.dayatang.commons}</version>
-				<scope>test</scope>
-				<exclusions>
-					<exclusion>
-						<groupId>com.dayatang.commons</groupId>
-						<artifactId>dayatang-commons-domain</artifactId>
-					</exclusion>
-				</exclusions>
-			</dependency>
-			<dependency>
-				<groupId>com.dayatang.commons</groupId>
-				<artifactId>dayatang-commons-spring-test</artifactId>
-				<version>${version.dayatang.commons}</version>
-				<scope>test</scope>
-			</dependency>
-
 			<!-- spring framework -->
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-web</artifactId>
+				<version>${version.spring}</version>
+			</dependency>
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-core</artifactId>
@@ -228,37 +147,58 @@
 				<scope>test</scope>
 			</dependency>
 
+			<!-- cxf -->
 			<dependency>
-				<groupId>org.springframework.data</groupId>
-				<artifactId>spring-data-jpa</artifactId>
-				<version>1.1.2.RELEASE</version>
-				<exclusions>
-					<exclusion>
-						<groupId>org.springframework</groupId>
-						<artifactId>spring-orm</artifactId>
-					</exclusion>
-					<exclusion>
-						<groupId>org.springframework</groupId>
-						<artifactId>spring-context</artifactId>
-					</exclusion>
-					<exclusion>
-						<groupId>org.springframework</groupId>
-						<artifactId>spring-aop</artifactId>
-					</exclusion>
-					<exclusion>
-						<groupId>org.springframework</groupId>
-						<artifactId>spring-tx</artifactId>
-					</exclusion>
-					<exclusion>
-						<groupId>org.springframework</groupId>
-						<artifactId>spring-beans</artifactId>
-					</exclusion>
-					<exclusion>
-						<groupId>org.springframework</groupId>
-						<artifactId>spring-core</artifactId>
-					</exclusion>
-				</exclusions>
+				<groupId>org.codehaus.jackson</groupId>
+				<artifactId>jackson-jaxrs</artifactId>
+				<version>1.9.2</version>
 			</dependency>
+			<dependency>
+				<groupId>org.codehaus.jackson</groupId>
+				<artifactId>jackson-xc</artifactId>
+				<version>1.9.2</version>
+			</dependency>
+			<dependency>
+				<groupId>javax.ws.rs</groupId>
+				<artifactId>jsr311-api</artifactId>
+				<version>${version.jsr311}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.cxf</groupId>
+				<artifactId>cxf-rt-core</artifactId>
+				<version>${version.cxf}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.cxf</groupId>
+				<artifactId>cxf-rt-frontend-jaxws</artifactId>
+				<version>${version.cxf}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.cxf</groupId>
+				<artifactId>cxf-rt-frontend-jaxrs</artifactId>
+				<version>${version.cxf}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.cxf</groupId>
+				<artifactId>cxf-rt-transports-http</artifactId>
+				<version>${version.cxf}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.cxf</groupId>
+				<artifactId>cxf-rt-transports-http-jetty</artifactId>
+				<version>${version.cxf}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.codehaus.woodstox</groupId>
+				<artifactId>stax2-api</artifactId>
+				<version>3.1.1</version>
+			</dependency>
+			<dependency>
+				<groupId>wsdl4j</groupId>
+				<artifactId>wsdl4j</artifactId>
+				<version>1.6.2</version>
+			</dependency>
+			<!-- cxf end -->
 
 			<dependency>
 				<groupId>org.hibernate</groupId>
@@ -293,11 +233,15 @@
 				<artifactId>commons-lang</artifactId>
 				<version>2.6</version>
 			</dependency>
-
 			<dependency>
 				<groupId>org.apache.commons</groupId>
 				<artifactId>commons-lang3</artifactId>
 				<version>3.1</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-configuration</groupId>
+				<artifactId>commons-configuration</artifactId>
+				<version>1.9</version>
 			</dependency>
 
 			<!-- data source -->
@@ -462,6 +406,12 @@
 			</dependency>
 
 			<dependency>
+				<groupId>cglib</groupId>
+				<artifactId>cglib</artifactId>
+				<version>2.2.2</version>
+			</dependency>
+
+			<dependency>
 				<groupId>org.codehaus.groovy</groupId>
 				<artifactId>groovy-all</artifactId>
 				<version>2.1.0</version>
@@ -490,6 +440,178 @@
 				<version>1.2.16</version>
 			</dependency>
 
+			<!-- security -->
+			<dependency>
+				<groupId>org.springframework.security</groupId>
+				<artifactId>spring-security-core</artifactId>
+				<version>3.1.3.RELEASE</version>
+				<exclusions>
+					<exclusion>
+						<groupId>commons-logging</groupId>
+						<artifactId>commons-logging</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>org.springframework</groupId>
+						<artifactId>spring-jdbc</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>org.springframework</groupId>
+						<artifactId>spring-aop</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>org.springframework</groupId>
+						<artifactId>spring-tx</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>org.springframework</groupId>
+						<artifactId>spring-core</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>aopalliance</groupId>
+						<artifactId>aopalliance</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>org.springframework</groupId>
+						<artifactId>spring-context</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>org.aspectj</groupId>
+						<artifactId>aspectjrt</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>org.springframework</groupId>
+						<artifactId>spring-beans</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>net.sf.ehcache</groupId>
+						<artifactId>ehcache</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>org.springframework</groupId>
+						<artifactId>spring-expression</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.security</groupId>
+				<artifactId>spring-security-web</artifactId>
+				<version>3.1.3.RELEASE</version>
+				<exclusions>
+					<exclusion>
+						<groupId>commons-logging</groupId>
+						<artifactId>commons-logging</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>org.springframework</groupId>
+						<artifactId>spring-jdbc</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>org.springframework</groupId>
+						<artifactId>spring-aop</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>org.springframework.security</groupId>
+						<artifactId>spring-security-core</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>javax.servlet</groupId>
+						<artifactId>servlet-api</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>org.springframework</groupId>
+						<artifactId>spring-web</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>org.springframework</groupId>
+						<artifactId>spring-tx</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>aopalliance</groupId>
+						<artifactId>aopalliance</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>org.springframework</groupId>
+						<artifactId>spring-context</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>org.springframework</groupId>
+						<artifactId>spring-core</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>org.springframework</groupId>
+						<artifactId>spring-beans</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>org.springframework</groupId>
+						<artifactId>spring-expression</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.security</groupId>
+				<artifactId>spring-security-config</artifactId>
+				<version>3.1.3.RELEASE</version>
+				<exclusions>
+					<exclusion>
+						<groupId>commons-logging</groupId>
+						<artifactId>commons-logging</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>org.springframework</groupId>
+						<artifactId>spring-web</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>org.springframework.security</groupId>
+						<artifactId>spring-security-web</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>org.springframework</groupId>
+						<artifactId>spring-core</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>org.aspectj</groupId>
+						<artifactId>aspectjweaver</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>org.springframework</groupId>
+						<artifactId>spring-aop</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>org.springframework.security</groupId>
+						<artifactId>spring-security-core</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>javax.servlet</groupId>
+						<artifactId>servlet-api</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>aopalliance</groupId>
+						<artifactId>aopalliance</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>org.springframework</groupId>
+						<artifactId>spring-context</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>org.springframework</groupId>
+						<artifactId>spring-beans</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+
+			<!-- other -->
+			<dependency>
+				<groupId>org.jasypt</groupId>
+				<artifactId>jasypt</artifactId>
+				<version>1.9.0</version>
+			</dependency>
+			<dependency>
+				<groupId>com.google.code.gson</groupId>
+				<artifactId>gson</artifactId>
+				<version>2.2.2</version>
+			</dependency>
+
+			<!-- test -->
 			<dependency>
 				<groupId>org.dbunit</groupId>
 				<artifactId>dbunit</artifactId>

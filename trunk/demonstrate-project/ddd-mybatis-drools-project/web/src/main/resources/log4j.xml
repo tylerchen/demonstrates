@@ -8,7 +8,7 @@
 			<param name="ConversionPattern" value="%-d{yyyy-MM-dd HH:mm:ss} [%c:%L]-[%p] %m%n" />
 		</layout>
 	</appender>
-	<appender class="org.apache.log4j.RollingFileAppender" name="JBossFileAppender">
+	<appender class="org.apache.log4j.RollingFileAppender" name="GsmsFileAppender">
 		<param name="Threshold" value="info" />
 		<param name="File" value="${jboss.server.home.dir}/log/gsms-ejb.log" />
 		<param name="MaxFileSize" value="100MB" />
@@ -22,7 +22,7 @@
 		<level value="ERROR" />
 	</logger>
 
-	<logger name="org.iff.demo">
+	<logger name="com.foreveross">
 		<level value="debug" />
 	</logger>
 	<logger name="org.apache.velocity">
@@ -30,7 +30,7 @@
 	</logger>
 
 	<root>
-		<level value="info" />
+		<level value="DEBUG" />
 		<appender-ref ref="RootConsoleAppender" />
 	</root>
 

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.1.dtd">
+
+<struts>
+	<!-- Constants -->
+	<constant name="struts.devMode" value="true" />
+	<constant name="struts.i18n.encoding" value="UTF-8" />
+	<constant name="struts.action.extension" value="action" />
+	<constant name="struts.objectFactory" value="spring" />
+	<constant name="struts.custom.i18n.resources" value="i18n/ApplicationResources,i18n/errors" />
+	<constant name="struts.multipart.maxSize" value="20971520" />
+	<constant name="struts.configuration.xml.reload" value="true" />
+	<constant name="struts.ognl.allowStaticMethodAccess" value="true" />
+	<constant name="struts.enable.SlashesInActionNames" value="true" />
+	<constant name="struts.action.excludePattern" value="/webservice,/webservice/.*" />
+
+	<package name="pe" extends="struts-default,json-default"><!-- extends="json-default" -->
+		<!--
+			<interceptors> <interceptor name="tokenSession"
+			class="com.foreveross.demo.web.action.base.ITokenSessionStoreInterceptor" />
+			</interceptors>
+		-->
+		<action name="*/*-*-*" class="com.foreveross.demo.web.action.{1}.{2}.{3}Action" method="{4}">
+			<result name="JSON" type="json">
+				<param name="excludeProperties">.*Application$,.*Temp$,.*request,.*session,.*request.*password,.*inputStream$,text,texts,locale,fieldErrors,errors,errorMessages,actionMessages,actionErrors</param>
+				<param name="includeProperties"></param>
+				<param name="excludeNullProperties">true</param>
+				<param name="ignoreHierarchy">false</param>
+			</result>
+			<result name="METHOD">/pages/{1}/{2}/{3}-{4}.jsp</result>
+			<result name="SUCCESS">/pages/common/messages.jsp</result>
+			<result name="ERROR_REDIRECT" type="redirect">/pages/common/error.jsp</result>
+			<result name="DEFINED">/pages/{1}/{2}/{3}-${definedMethodTemp}.jsp</result>
+			<result name="DOWNLOAD" type="stream">
+				<param name="contentType">${fileType}</param>
+				<param name="inputName">inputStream</param>
+				<param name="contentDisposition">attachment;filename="${realFileName}"</param>
+				<param name="bufferSize">4096</param>
+			</result>
+		</action>
+	</package>
+</struts>

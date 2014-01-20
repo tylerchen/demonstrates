@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.foreveross.demo.sys.domain.FieldMapperRepository">
+
+	<resultMap id="FieldMapper" type="com.foreveross.demo.sys.domain.FieldMapper">
+		<id property="id" column="ID" jdbcType="VARCHAR" />
+		<result property="fieldName" column="FIELD_NAME" jdbcType="VARCHAR" />
+		<result property="objectClass" column="OBJECT_CLASS" jdbcType="VARCHAR" />
+		<result property="objectField" column="OBJECT_FIELD" jdbcType="VARCHAR" />
+		<result property="objectName" column="OBJECT_NAME" jdbcType="VARCHAR" />
+		
+		<result property="mappedClass" column="MAPPED_CLASS" jdbcType="VARCHAR" />
+		<result property="mappedField" column="MAPPED_FIELD" jdbcType="VARCHAR" />
+		<result property="mappedName" column="MAPPED_NAME" jdbcType="VARCHAR" />
+		
+		<result property="dbTable" column="DB_TABLE" jdbcType="VARCHAR" />
+		<result property="dbCoulmn" column="DB_COULMN" jdbcType="VARCHAR" />
+		<result property="dbName" column="DB_NAME" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<sql id="FieldMapper_Column">
+		FMM.ID, 
+		FMM.FIELD_NAME, 
+		FMM.OBJECT_CLASS, FMM.OBJECT_FIELD, FMM.OBJECT_NAME, 
+		FMM.MAPPED_CLASS, FMM.MAPPED_FIELD, FMM.MAPPED_NAME, 
+		FMM.DB_TABLE, FMM.DB_COULMN, FMM.DB_NAME
+	</sql>
+
+	<select id="getFieldMapper" parameterType="string" resultMap="FieldMapper">
+		SELECT
+			<include refid="FieldMapper_Column"/>
+		FROM
+			RULES_FIELD_MAPPER FMM
+		WHERE
+			FMM.ID = #{id}
+	</select>
+
+	<insert id="insertFieldMapper" parameterType="com.foreveross.demo.sys.domain.FieldMapper" useGeneratedKeys="true" keyProperty="accountId">
+		INSERT INTO RULES_FIELD_MAPPER
+			(ID, FIELD_NAME, OBJECT_CLASS, OBJECT_FIELD, OBJECT_NAME, MAPPED_CLASS, MAPPED_FIELD, MAPPED_NAME, DB_TABLE, DB_COULMN, DB_NAME)
+		VALUES
+			(#{id}, #{fieldName}, #{objectClass}, #{objectField}, #{objectName}, #{mappedClass}, #{mappedField}, #{mappedName}, #{dbTable}, #{dbCoulmn}, #{dbName})
+	</insert>
+
+	<update id="updateFieldMapper" parameterType="com.foreveross.demo.sys.domain.FieldMapper">
+		UPDATE RULES_FIELD_MAPPER SET
+			FIELD_NAME = #{fieldName}, 
+			OBJECT_CLASS = #{objectClass}, OBJECT_FIELD = #{objectField}, OBJECT_NAME = #{objectName}, 
+			MAPPED_CLASS = #{mappedClass}, MAPPED_FIELD = #{mappedField}, MAPPED_NAME = #{mappedName},
+			DB_TABLE = #{dbTable}, DB_COULMN = #{dbCoulmn}, DB_NAME = #{dbName}
+		WHERE
+			ID = #{id}
+	</update>
+
+	<delete id="deleteFieldMapper" parameterType="string">
+		DELETE FROM
+			RULES_FIELD_MAPPER
+		WHERE
+			ID = #{id}
+	</delete>
+
+	<delete id="deleteFieldMapperByFieldName" parameterType="string">
+		DELETE FROM
+			RULES_FIELD_MAPPER
+		WHERE
+			FIELD_NAME = #{fieldName}
+	</delete>
+	
+	<select id="pageFindFieldMapper" resultMap="FieldMapper">
+		SELECT
+			<include refid="FieldMapper_Column"/>
+		FROM
+			RULES_FIELD_MAPPER FMM
+		WHERE
+			1 = 1
+			<if test="fieldName != null">FMM.FIELD_NAME = #{fieldName}</if>
+	</select>
+
+	<select id="pageFindFieldMapper2" resultMap="FieldMapper">
+		SELECT
+			<include refid="FieldMapper_Column"/>
+		FROM
+			RULES_FIELD_MAPPER FMM
+		WHERE
+			FMM.FIELD_NAME = #{fieldName}
+	</select>
+	
+	<select id="findAllFieldMapper"  resultMap="FieldMapper">
+		SELECT
+			<include refid="FieldMapper_Column"/>
+		FROM
+			RULES_FIELD_MAPPER FMM
+	</select>
+	
+	<select id="removeFieldMapperByFieldName">
+		DELETE FROM
+			RULES_FIELD_MAPPER
+		WHERE
+			FIELD_NAME = #{fieldName}
+	</select>
+</mapper>

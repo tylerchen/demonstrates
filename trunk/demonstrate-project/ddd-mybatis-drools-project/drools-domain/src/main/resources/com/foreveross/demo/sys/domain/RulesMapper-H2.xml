@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.foreveross.demo.sys.domain.RulesRepository">
+
+	<resultMap id="Rules" type="com.foreveross.demo.sys.domain.Rules">
+		<id property="id" column="ID" jdbcType="VARCHAR" />
+		<result property="ruleSetKey" column="RULE_SET_KEY" jdbcType="VARCHAR" />
+		<result property="effectiveDate" column="EFFECTIVE_DATE" jdbcType="TIMESTAMP" />
+		<result property="expiresDate" column="EXPIRES_DATE" jdbcType="TIMESTAMP" />
+		<result property="rule" column="RULE" jdbcType="CLOB" />
+		<result property="dsl" column="DSL" jdbcType="CLOB" />
+		<result property="updateTime" column="UPDATE_TIME" jdbcType="TIMESTAMP" />
+		<result property="updateMark" column="UPDATE_MARK" jdbcType="BIGINT" />
+		<result property="description" column="DESCRIPTION" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<sql id="Rules_Column">
+		RUL.ID, 
+		RUL.RULE_SET_KEY, 
+		RUL.EFFECTIVE_DATE, 
+		RUL.EXPIRES_DATE, 
+		RUL.RULE, 
+		RUL.DSL, 
+		RUL.UPDATE_TIME, 
+		RUL.UPDATE_MARK, 
+		RUL.DESCRIPTION
+	</sql>
+
+	<select id="getRules" parameterType="string" resultMap="Rules">
+		SELECT
+			<include refid="Rules_Column"/>
+		FROM
+			RULES_RULES RUL
+		WHERE
+			RUL.ID = #{id}
+	</select>
+
+	<insert id="insertRules" parameterType="com.foreveross.demo.sys.domain.Rules" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO RULES_RULES
+			(ID, RULE_SET_KEY, EFFECTIVE_DATE, EXPIRES_DATE, RULE, DSL, UPDATE_TIME, UPDATE_MARK, DESCRIPTION)
+		VALUES
+			(#{id}, #{ruleSetKey}, #{effectiveDate}, #{expiresDate}, #{rule}, #{dsl}, #{updateTime}, #{updateMark}, #{description})
+	</insert>
+
+	<update id="updateRules" parameterType="com.foreveross.demo.sys.domain.Rules">
+		UPDATE RULES_RULES SET
+			RULE_SET_KEY   = #{uniqueKey}, 
+			EFFECTIVE_DATE = #{effectiveDate},
+			EXPIRES_DATE   = #{expiresDate}, 
+			RULE           = #{rule}, 
+			DSL            = #{dsl}, 
+			UPDATE_TIME    = #{updateTime}, 
+			UPDATE_MARK    = #{updateMark}, 
+			DESCRIPTION    = #{description}
+		WHERE
+			ID = #{id}
+	</update>
+
+	<delete id="deleteRules" parameterType="string">
+		DELETE FROM
+			RULES_RULES
+		WHERE
+			ID = #{id}
+	</delete>
+
+	<delete id="deleteRulesByUniqueKey" parameterType="string">
+		DELETE FROM
+			RULES_RULES
+		WHERE
+			RULE_SET_KEY = #{uniqueKey}
+	</delete>
+	
+	<select id="pageFindRules" resultMap="Rules">
+		SELECT
+			<include refid="Rules_Column"/>
+		FROM
+			RULES_RULES RUL
+		WHERE
+			1 = 1
+			<if test="rulesId    != null">AND RUL.ID = #{rulesId}</if>
+			<if test="ruleSetKey != null">AND RUL.RULE_SET_KEY = #{ruleSetKey}</if>
+		ORDER BY
+			RUL.UPDATE_TIME ASC
+	</select>
+
+	<select id="pageFindRules2" resultMap="Rules">
+		SELECT
+			<include refid="Rules_Column"/>
+		FROM
+			RULES_RULES RUL
+	</select>
+
+	<select id="findRulesByUpdateTime" resultMap="Rules">
+		SELECT
+			<include refid="Rules_Column"/>
+		FROM
+			RULES_RULES RUL
+		WHERE
+			RUL.UPDATE_TIME >= #{updateTime}
+	</select>
+
+	<select id="getMaxUpdateMark" resultType="java.lang.Long"> 
+		SELECT
+			max(RUL.UPDATE_MARK)
+		FROM
+			RULES_RULES RUL
+	</select>
+
+	<select id="findRulesByUpdateMark" resultMap="Rules"> 
+		SELECT
+			<include refid="Rules_Column"/>
+		FROM
+			RULES_RULES RUL
+		WHERE
+			RUL.UPDATE_MARK >= #{updateMark}
+	</select>
+</mapper>

@@ -12,6 +12,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.foreveross.authorization.data.DataAuthorization;
 import com.foreveross.util.mybatis.plugin.Page;
 
 /**
@@ -20,6 +21,7 @@ import com.foreveross.util.mybatis.plugin.Page;
  */
 public interface DemoRepository {
 
+	@DataAuthorization(enable = true, insertIndex = "	WHERE", joinTable = " demo INNER JOIN DEMO1 demo1 ON demo1.A_ID=demo.A_ID ", condition = " demo1.A_ID=? and ", parameterNames = {"#{param1}"})
 	Demo getAccount(String accountId);
 
 	Demo getAccountByUsernameAndPassword(Demo account);
