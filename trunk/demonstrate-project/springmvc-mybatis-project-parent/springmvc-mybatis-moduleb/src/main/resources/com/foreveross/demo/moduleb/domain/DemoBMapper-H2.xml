@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.foreveross.demo.moduleb.repository.DemoBRepository">
+
+	<resultMap id="DemoB" type="com.foreveross.demo.moduleb.domain.DemoB">
+		<id property="accountId" column="ACCOUNTID" jdbcType="INTEGER"/>
+		<result property="username" column="USERNAME" jdbcType="VARCHAR"/>
+		<result property="password" column="PASSWORD" jdbcType="VARCHAR"/>
+	</resultMap>
+	 
+	<select id="getAccount" parameterType="string" resultType="com.foreveross.demo.moduleb.domain.DemoB">
+		SELECT
+			DEMOB.A_ID AS ACCOUNTID,
+			DEMOB.USERNAME,
+			DEMOB.PASSWORD
+		FROM DEMOB
+		WHERE
+			DEMOB.A_ID = #{accountId}
+	</select>
+	
+	<select id="getAccountByUsernameAndPassword" parameterType="com.foreveross.demo.moduleb.domain.DemoB" resultMap="DemoB">
+		SELECT
+			DEMOB.A_ID AS ACCOUNTID,
+			DEMOB.USERNAME,
+			DEMOB.PASSWORD
+		FROM DEMOB
+		WHERE
+			DEMOB.USERNAME = #{username}
+			AND DEMOB.PASSWORD = #{password}
+	</select>
+	
+	<select id="pageFindAccount" resultMap="DemoB">
+		SELECT
+			DEMOB.A_ID AS ACCOUNTID,
+			DEMOB.USERNAME,
+			DEMOB.PASSWORD
+		FROM DEMOB
+		WHERE
+			DEMOB.USERNAME = #{username}
+	</select>
+	
+	<select id="pageFindAccount2" resultMap="DemoB">
+		SELECT
+			DEMOB.A_ID AS ACCOUNTID,
+			DEMOB.USERNAME,
+			DEMOB.PASSWORD
+		FROM DEMOB
+		WHERE
+			DEMOB.USERNAME = #{username}
+	</select>
+	
+	<insert id="insertAccount" parameterType="com.foreveross.demo.moduleb.domain.DemoB" useGeneratedKeys="true" keyProperty="accountId" >
+		INSERT INTO DEMOB
+			(A_ID, USERNAME, PASSWORD)
+		VALUES
+			(#{accountId}, #{username}, #{password})
+	</insert>
+	
+	<update id="updateAccount" parameterType="com.foreveross.demo.moduleb.domain.DemoB">
+		UPDATE DEMOB SET
+			USERNAME = ${username},
+			PASSWORD = ${password}
+		WHERE
+			A_ID = #{accountId}
+	</update>
+	
+	<delete id="deleteAccount" parameterType="string">
+		DELETE FROM 
+			DEMOB
+		WHERE 
+			A_ID = #{accountId}
+	</delete>
+</mapper>

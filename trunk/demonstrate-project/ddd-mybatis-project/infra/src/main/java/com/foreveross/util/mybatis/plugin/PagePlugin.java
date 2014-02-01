@@ -3,8 +3,6 @@ package com.foreveross.util.mybatis.plugin;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
@@ -19,14 +17,12 @@ import org.apache.ibatis.executor.statement.RoutingStatementHandler;
 import org.apache.ibatis.executor.statement.StatementHandler;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.MappedStatement;
-import org.apache.ibatis.mapping.ParameterMapping;
 import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.plugin.Intercepts;
 import org.apache.ibatis.plugin.Invocation;
 import org.apache.ibatis.plugin.Plugin;
 import org.apache.ibatis.plugin.Signature;
 
-import com.foreveross.authorization.data.impl.DefaultDataAuthorizationStep;
 import com.foreveross.util.jdbc.dialet.Dialect;
 
 @SuppressWarnings("unchecked")
@@ -38,14 +34,6 @@ public class PagePlugin implements Interceptor {
 
 	public Object intercept(Invocation ivk) throws Throwable {
 
-		{
-			try {
-				new DefaultDataAuthorizationStep().step1(new Object[] { ivk });
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-
 		if (ivk.getTarget() instanceof RoutingStatementHandler) {
 			RoutingStatementHandler statementHandler = (RoutingStatementHandler) ivk
 					.getTarget();
@@ -53,24 +41,6 @@ public class PagePlugin implements Interceptor {
 					.getValueByFieldName(statementHandler, "delegate");
 			MappedStatement mappedStatement = (MappedStatement) ReflectHelper
 					.getValueByFieldName(delegate, "mappedStatement");
-
-			//			{
-			//				delegate.getBoundSql().getParameterMappings().set(
-			//						0,
-			//						new ParameterMapping.Builder(mappedStatement
-			//								.getConfiguration(), "test", String.class)
-			//								.build());
-			//				delegate.getBoundSql().setAdditionalParameter("test", "test");
-			//				System.out.println(delegate.getBoundSql().getSql());
-			//				System.out.println(delegate.getBoundSql().getParameterObject());
-			//				List<ParameterMapping> parameterMappings = delegate
-			//						.getBoundSql().getParameterMappings();
-			//				for (ParameterMapping pm : parameterMappings) {
-			//					System.out.println(pm.getResultMapId());
-			//					System.out.println(pm.getProperty());
-			//					System.out.println(pm.getMode());
-			//				}
-			//			}
 
 			if (mappedStatement.getId().matches(pageSqlId)) { // 拦截需要分页的SQL
 				BoundSql boundSql = delegate.getBoundSql();

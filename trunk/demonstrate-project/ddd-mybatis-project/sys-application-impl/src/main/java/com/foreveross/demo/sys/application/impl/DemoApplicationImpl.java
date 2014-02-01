@@ -87,6 +87,12 @@ public class DemoApplicationImpl implements DemoApplication {
 		Page pages = new Page(10);
 		String username = "test";
 		{
+			DemoVO vo = new DemoVO();
+			vo.setUsername("test");
+			vo.setPassword("test");
+			saveAccount(vo);
+		}
+		{
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("page", pages);
 			map.put("username", username);
