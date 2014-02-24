@@ -43,12 +43,9 @@
 
 		<hibernate.hbm2ddl.auto>update</hibernate.hbm2ddl.auto>
 		<hibernate.show_sql>true</hibernate.show_sql>
-		<!--
-			<hibernate.dialect>org.hibernate.dialect.MySQL5InnoDBDialect</hibernate.dialect>
-			<db.jdbcDriver>com.mysql.jdbc.Driver</db.jdbcDriver>
-			<db.connectionURL>jdbc:mysql://localhost:3306/jpa?createDatabaseIfNotExist=true&amp;amp;useUnicode=true&amp;amp;characterEncoding=utf-8&amp;amp;autoReconnect=true</db.connectionURL>
-			<db.username>iff</db.username> <db.password>iff</db.password>
-		-->
+		<!-- <hibernate.dialect>org.hibernate.dialect.MySQL5InnoDBDialect</hibernate.dialect> 
+			<db.jdbcDriver>com.mysql.jdbc.Driver</db.jdbcDriver> <db.connectionURL>jdbc:mysql://localhost:3306/jpa?createDatabaseIfNotExist=true&amp;amp;useUnicode=true&amp;amp;characterEncoding=utf-8&amp;amp;autoReconnect=true</db.connectionURL> 
+			<db.username>iff</db.username> <db.password>iff</db.password> -->
 		<hibernate.dialect>org.hibernate.dialect.H2Dialect</hibernate.dialect>
 		<db.jdbcDriver>org.h2.Driver</db.jdbcDriver>
 		<db.connectionURL>jdbc:h2:mem:test;MODE=Oracle;DB_CLOSE_DELAY=-1</db.connectionURL>
@@ -747,7 +744,7 @@
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
 		</dependency>
-		<!-- google  end-->
+		<!-- google end -->
 		<!-- from applicationimpl -->
 		<dependency>
 			<groupId>org.mybatis</groupId>
@@ -778,33 +775,21 @@
 			<version>2.2</version>
 			<scope>provided</scope>
 		</dependency>
-		<!--
-			<dependency> <groupId>org.apache.tomcat</groupId>
-			<artifactId>tomcat-jasper</artifactId> <version>8.0.0-RC10</version>
-			</dependency>
-		-->
-		<!--
-			<dependency> <groupId>org.apache.tomcat</groupId>
-			<artifactId>tomcat-servlet-api</artifactId> <version>7.0.47</version>
-			</dependency> <dependency> <groupId>org.apache.tomcat</groupId>
-			<artifactId>tomcat-jsp-api</artifactId> <version>7.0.47</version>
-			</dependency> <dependency> <groupId>org.apache.tomcat</groupId>
-			<artifactId>tomcat-el-api</artifactId> <version>7.0.47</version>
-			</dependency> <dependency>
-			<groupId>org.eclipse.jdt.core.compiler</groupId>
-			<artifactId>ecj</artifactId> <version>4.3.1</version> </dependency>
-			<dependency> <groupId>org.apache.ant</groupId>
-			<artifactId>ant</artifactId> <version>1.9.3</version> </dependency>
-		-->
-		<!--
-			<dependency> <groupId>org.apache.commons</groupId>
-			<artifactId>commons-jci-eclipse</artifactId> <version>1.1</version>
-			</dependency> <dependency> <groupId>org.apache.commons</groupId>
-			<artifactId>commons-jci-core</artifactId> <version>1.1</version>
-			</dependency> <dependency> <groupId>org.apache.commons</groupId>
-			<artifactId>commons-jci-fam</artifactId> <version>1.1</version>
-			</dependency>
-		-->
+		<!-- <dependency> <groupId>org.apache.tomcat</groupId> <artifactId>tomcat-jasper</artifactId> 
+			<version>8.0.0-RC10</version> </dependency> -->
+		<!-- <dependency> <groupId>org.apache.tomcat</groupId> <artifactId>tomcat-servlet-api</artifactId> 
+			<version>7.0.47</version> </dependency> <dependency> <groupId>org.apache.tomcat</groupId> 
+			<artifactId>tomcat-jsp-api</artifactId> <version>7.0.47</version> </dependency> 
+			<dependency> <groupId>org.apache.tomcat</groupId> <artifactId>tomcat-el-api</artifactId> 
+			<version>7.0.47</version> </dependency> <dependency> <groupId>org.eclipse.jdt.core.compiler</groupId> 
+			<artifactId>ecj</artifactId> <version>4.3.1</version> </dependency> <dependency> 
+			<groupId>org.apache.ant</groupId> <artifactId>ant</artifactId> <version>1.9.3</version> 
+			</dependency> -->
+		<!-- <dependency> <groupId>org.apache.commons</groupId> <artifactId>commons-jci-eclipse</artifactId> 
+			<version>1.1</version> </dependency> <dependency> <groupId>org.apache.commons</groupId> 
+			<artifactId>commons-jci-core</artifactId> <version>1.1</version> </dependency> 
+			<dependency> <groupId>org.apache.commons</groupId> <artifactId>commons-jci-fam</artifactId> 
+			<version>1.1</version> </dependency> -->
 		<dependency>
 			<groupId>org.eclipse.jdt.core.compiler</groupId>
 			<artifactId>ecj</artifactId>
@@ -893,7 +878,33 @@
 				</plugin>
 				<plugin>
 					<artifactId>maven-antrun-plugin</artifactId>
-					<version>1.6</version>
+					<version>1.7</version>
+				</plugin>
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.apache.maven.plugins</groupId>
+										<artifactId>maven-antrun-plugin</artifactId>
+										<versionRange>[0.0,)</versionRange>
+										<goals>
+											<goal>run</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<execute>
+											<runOnIncremental>true</runOnIncremental>
+										</execute>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
 				</plugin>
 				<plugin>
 					<artifactId>maven-source-plugin</artifactId>
@@ -928,12 +939,35 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.3.2</version>
 				<configuration>
 					<source>1.6</source>
 					<target>1.6</target>
 					<encoding>UTF-8</encoding>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>test-copy</id>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<tasks>
+								<copy
+									todir="${project.basedir}/../springmvc-mybatis-framework/target/springmvc-mybatis-framework-1.0.0"
+									overwrite="true" failonerror="false">
+									<fileset
+										dir="${project.basedir}/src/main/resources/META-INF/resources" includes="**/*.jsp">
+									</fileset>
+								</copy>
+							</tasks>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

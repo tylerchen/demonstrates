@@ -6,6 +6,7 @@
 <body>
 <h1>Hello ${hello}<h1/>
 <h1>${pageContext.request.contextPath}</h1>
-<h1><a href="core/demo-Demo-hello.action">Demo</a></h1>
+<h1><a href="core/demo-Demo-hello.action">Demo test</a></h1>
+<img src="${pageContext.request.contextPath}/js/images/loading.gif" alt="test" />
 </body>
 </html>
